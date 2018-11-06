@@ -1,0 +1,74 @@
+<html>
+
+<body>
+  <button onclick="getInfo()">Get info</button>
+  <button onclick="openUrl()">Open URL</button>
+  <button onclick="closeWebview()">Close</button>
+  <p id="authentication"></p>
+  <p id="token"></p>
+  <p id="salty"></p>
+  <p id="appId"></p>
+  <p id="platform"></p>
+  <p id="cpf"></p>
+  <p id="cpfHashed"></p>
+  <p id="customerName"></p>
+  <p id="customerFullName"></p>
+  <p id="customerEmail"></p>
+  <p id="customerCardName"></p>
+  <p id="customerCardFlag"></p>
+  <p id="customerCardProduct"></p>
+  <p id="customerCardOwnership"></p>
+  <p id="customerCardInvoice"></p>
+  <p id="customerCardType"></p>
+  <p id="customerType"></p>
+  <p id="accessibility"></p>
+</body>
+
+<script>
+
+function getInfo() {
+  const { native } = window;
+  document.getElementById('authentication').innerHTML = 'Auth: ' + native.getItem('BENEFITS_STORE_AUTHENTICATION');
+  document.getElementById('token').innerHTML = 'Token: ' + native.getItem('BENEFITS_STORE_CLIENT_TOKEN');
+  document.getElementById('salty').innerHTML = 'Salty: ' + native.getItem('SALTY');
+  document.getElementById('appId').innerHTML = 'AppId: ' + native.getItem('APP_ID');
+  document.getElementById('platform').innerHTML = 'Platform: ' + native.getItem('PLATFORM');
+  document.getElementById('cpf').innerHTML = 'CPF: ' + native.getItem('CPF');
+  document.getElementById('cpfHashed').innerHTML = 'CPFHashed: ' + native.getItem('CPF_HASHED');
+  document.getElementById('customerName').innerHTML = 'Name: ' + native.getItem('CUSTOMER_NAME');
+  document.getElementById('customerFullName').innerHTML = 'FullName: ' + native.getItem('CUSTOMER_FULL_NAME');
+  document.getElementById('customerEmail').innerHTML = 'Email: ' + native.getItem('CUSTOMER_EMAIL');
+  document.getElementById('customerCardName').innerHTML = 'CardName: ' + native.getItem('CUSTOMER_CARD_NAME');
+  document.getElementById('customerCardFlag').innerHTML = 'CardFlag: ' + native.getItem('CUSTOMER_CARD_FLAG');
+  document.getElementById('customerCardProduct').innerHTML = 'CardProduct: ' + native.getItem('CUSTOMER_CARD_PRODUCT');
+  document.getElementById('customerCardOwnership').innerHTML = 'CardOwnership: ' + native.getItem('CUSTOMER_CARD_OWNERSHIP');
+  document.getElementById('customerCardInvoice').innerHTML = 'CardInvoice: ' + native.getItem('CUSTOMER_CARD_INVOICE_CARD_DEBIT');
+  document.getElementById('customerCardType').innerHTML = 'CardType: ' + native.getItem('CUSTOMER_CARD_TYPE');
+  document.getElementById('customerType').innerHTML = 'CustomerType: ' + native.getItem('CUSTOMER_TYPE');
+  document.getElementById('accessibility').innerHTML = 'Accessibility: ' + native.getItem('CUSTOMER_ACCESSIBILITY');
+}
+
+function openUrl() {
+  const { native } = window;
+  native.setItem("EXTERNAL_URL", "https://uol.com.br");
+
+  const jsonProtocol = {}; 
+  jsonProtocol.action = "com.itau.OPEN_LINK"; 
+  jsonProtocol.category = "com.itau.category.DEFAULT"; 
+
+  const jsonString = JSON.stringify(jsonProtocol); 
+  native.requestNativeFeature(jsonString, 'responseNativeFeature'); 
+}
+function closeWebview() {
+  const { native } = window;
+
+  const jsonProtocol = {}; 
+  jsonProtocol.action = "com.itau.CLOSE_WINDOW"; 
+  jsonProtocol.category = "com.itau.category.DEFAULT"; 
+
+  const jsonString = JSON.stringify(jsonProtocol); 
+  native.requestNativeFeature(jsonString, 'responseNativeFeature'); 
+}
+</script>
+
+</html>
